@@ -8,13 +8,7 @@ app/
 │   ├── ui/              # shadcn/ui components
 │   └── common/          # Custom shared components
 ├── features/            # Feature-based organization
-│   ├── itinerary/       # Itinerary management
-│   ├── chat/            # AI chat functionality
-│   └── planning/        # Trip planning features
 ├── lib/                 # Utility libraries and configurations
-│   ├── ai/              # AI/LLM utilities
-│   ├── storage/         # Storage adapter and utilities
-│   └── utils/           # General utility functions
 ├── routes/              # React Router pages
 ├── types/               # TypeScript type definitions
 └── hooks/               # Shared React hooks
@@ -103,11 +97,14 @@ export function useFeatureName(initialState?: State) {
 
 ## Testing Organization
 
+Map a single top level `__tests__` directory to the same `app` directory structure (with consistent nesting), except for `e2e` tests (which won't map 1:1 with the `app` structure).
+
 ```
 __tests__/
 ├── components/          # Component tests
+├── features/          # Feature tests
+├── lib/              # Utility function tests
 ├── hooks/              # Hook tests
-├── utils/              # Utility function tests
 └── e2e/                # Playwright tests
 ```
 
@@ -161,29 +158,12 @@ export interface ItineraryItem extends BaseEntity {
 }
 ```
 
-## Storage Adapter Pattern
-
-```typescript
-// ~/lib/storage/adapter.ts
-export interface StorageAdapter {
-  get<T>(key: string): Promise<T | null>;
-  set<T>(key: string, value: T): Promise<void>;
-  remove(key: string): Promise<void>;
-}
-
-// ~/lib/storage/localStorage.ts
-export class LocalStorageAdapter implements StorageAdapter {
-  // Implementation
-}
-```
-
 ## Code Style Guidelines
 
 - **Prefer composition over inheritance**
 - **Use pure functions when possible**
 - **Minimize side effects**
 - **Explicit over implicit**
-- **Return early to reduce nesting**
 - **Use TypeScript strict mode features**
 - **Prefer `const` assertions for immutable data**
 

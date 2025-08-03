@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Leisure travelers struggle with organizing and managing their trip itineraries effectively. Current solutions are often fragmented, requiring multiple tools and platforms to plan, organize, and access travel information.
+Leisure travelers struggle with organizing and managing their trip itineraries effectively.
 
 ## Target Users
 
@@ -22,19 +22,11 @@ Traivel provides an intuitive, AI-powered trip planning and itinerary management
 - **Itinerary Creation**: Build detailed day-by-day trip itineraries
 - **AI-Powered Planning**: Use LLMs to suggest activities, optimize schedules, and provide travel insights
 - **Itinerary Management**: Edit, reorder, and manage trip components
-- **Offline Access**: Access itineraries without internet connection
-- **Simple Persistence**: Local storage for immediate use
-
-## Success Metrics
-
-- User engagement with itinerary creation tools
-- Frequency of itinerary updates and modifications
-- User retention and repeat usage
-- Time spent planning vs. time spent enjoying trips
+- **Simple Persistence**: Local storage as a temporary stand in for a SQL database
 
 ## Business Objectives
 
-- Create a seamless trip planning experience
+- Create a seamless trip planning experience with a beautiful world class UI
 - Leverage AI to enhance travel planning decisions
 - Build a foundation for future travel service integrations
 - Establish user base for potential monetization opportunities
@@ -46,9 +38,8 @@ Traivel provides an intuitive, AI-powered trip planning and itinerary management
 - Basic itinerary creation and management
 - AI-powered suggestions and chat
 - Local data persistence
-- Mobile-responsive design
 
-**Future Considerations**:
+**Out of scope**:
 
 - Real-time collaboration
 - Third-party booking integrations
