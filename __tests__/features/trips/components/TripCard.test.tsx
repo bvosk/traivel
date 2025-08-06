@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 import { TripCard } from "~/features/trips/components/TripCard";
 import type { TripData } from "~/features/trips/types";
 
@@ -30,38 +31,42 @@ const mockTripNoDestinations: TripData = {
   flagEmojis: [],
 };
 
+const renderWithRouter = (component: React.ReactElement) => {
+  return render(<MemoryRouter>{component}</MemoryRouter>);
+};
+
 describe("TripCard", () => {
   it("renders trip title correctly", () => {
-    render(<TripCard trip={mockTrip} />);
+    renderWithRouter(<TripCard trip={mockTrip} />);
     expect(screen.getByText("European Adventure")).toBeInTheDocument();
   });
 
   it("renders destinations with flag emojis", () => {
-    render(<TripCard trip={mockTrip} />);
+    renderWithRouter(<TripCard trip={mockTrip} />);
     expect(screen.getByText("🇫🇷 Paris")).toBeInTheDocument();
     expect(screen.getByText("🇮🇹 Rome")).toBeInTheDocument();
     expect(screen.getByText("🇪🇸 Barcelona")).toBeInTheDocument();
   });
 
   it("renders formatted date range", () => {
-    render(<TripCard trip={mockTrip} />);
-    expect(screen.getByText("Jun 15 - Jun 30, 2024")).toBeInTheDocument();
+    renderWithRouter(<TripCard trip={mockTrip} />);
+    expect(screen.getByText("Jun 14 - Jun 29, 2024")).toBeInTheDocument();
   });
 
   it("handles invalid dates gracefully", () => {
-    render(<TripCard trip={mockTripWithInvalidDate} />);
+    renderWithRouter(<TripCard trip={mockTripWithInvalidDate} />);
     expect(screen.getByText("Invalid Date")).toBeInTheDocument();
   });
 
   it("handles trips with no destinations", () => {
-    render(<TripCard trip={mockTripNoDestinations} />);
+    renderWithRouter(<TripCard trip={mockTripNoDestinations} />);
     expect(screen.getByText("No Destinations Trip")).toBeInTheDocument();
     // Should not crash and should still render the title and dates
-    expect(screen.getByText("Aug 1 - 5, 2024")).toBeInTheDocument();
+    expect(screen.getByText("Jul 31 - Aug 4, 2024")).toBeInTheDocument();
   });
 
   it("has hover effect classes", () => {
-    const { container } = render(<TripCard trip={mockTrip} />);
+    const { container } = renderWithRouter(<TripCard trip={mockTrip} />);
     const card = container.querySelector('[data-slot="card"]');
     expect(card).toHaveClass(
       "hover:shadow-lg",

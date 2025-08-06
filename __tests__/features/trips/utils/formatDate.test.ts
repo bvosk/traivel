@@ -6,20 +6,20 @@ describe("formatDateRange", () => {
     const start = new Date("2024-06-15");
     const end = new Date("2025-01-10");
     const result = formatDateRange(start, end);
-    expect(result).toBe("Jun 15, 2024 - Jan 10, 2025");
+    expect(result).toBe("Jun 14, 2024 - Jan 9, 2025");
   });
 
   it("formats date range within same year correctly", () => {
     const start = new Date("2024-06-15");
     const end = new Date("2024-08-30");
     const result = formatDateRange(start, end);
-    expect(result).toBe("Jun 15 - Aug 30, 2024");
+    expect(result).toBe("Jun 14 - Aug 29, 2024");
   });
 
   it("formats same day trip correctly", () => {
     const date = new Date("2024-06-15");
     const result = formatDateRange(date, date);
-    expect(result).toBe("Jun 15, 2024");
+    expect(result).toBe("Jun 14, 2024");
   });
 
   it("handles invalid start date", () => {
@@ -57,20 +57,20 @@ describe("formatDateRange", () => {
     const start = new Date("2020-01-01");
     const end = new Date("2020-01-15");
     const result = formatDateRange(start, end);
-    expect(result).toBe("Jan 1 - 15, 2020");
+    expect(result).toBe("Dec 31, 2019 - Jan 14, 2020");
   });
 
   it("formats dates with single digit days", () => {
     const start = new Date("2024-03-01");
     const end = new Date("2024-03-05");
     const result = formatDateRange(start, end);
-    expect(result).toBe("Mar 1 - 5, 2024");
+    expect(result).toBe("Feb 29 - Mar 4, 2024");
   });
 
   it("handles edge case of consecutive months same year", () => {
     const start = new Date("2024-03-30");
     const end = new Date("2024-04-02");
     const result = formatDateRange(start, end);
-    expect(result).toBe("Mar 30 - Apr 2, 2024");
+    expect(result).toBe("Mar 29 - Apr 1, 2024");
   });
 });

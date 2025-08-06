@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 import { TripList } from "~/features/trips/components/TripList";
 import type { TripData } from "~/features/trips/types";
 
@@ -22,6 +23,10 @@ const mockTrips: TripData[] = [
   },
 ];
 
+const renderWithRouter = (component: React.ReactElement) => {
+  return render(<MemoryRouter>{component}</MemoryRouter>);
+};
+
 describe("TripList", () => {
   it("renders EmptyState when trips array is empty", () => {
     render(<TripList trips={[]} />);
@@ -34,7 +39,7 @@ describe("TripList", () => {
   });
 
   it("renders TripCard components when trips are provided", () => {
-    render(<TripList trips={mockTrips} />);
+    renderWithRouter(<TripList trips={mockTrips} />);
     expect(screen.getByText("European Adventure")).toBeInTheDocument();
     expect(screen.getByText("Asian Discovery")).toBeInTheDocument();
     expect(screen.getByText("🇫🇷 Paris")).toBeInTheDocument();
@@ -42,13 +47,13 @@ describe("TripList", () => {
   });
 
   it("renders correct number of trip cards", () => {
-    const { container } = render(<TripList trips={mockTrips} />);
+    const { container } = renderWithRouter(<TripList trips={mockTrips} />);
     const cards = container.querySelectorAll('[data-slot="card"]');
     expect(cards).toHaveLength(2);
   });
 
   it("has responsive grid layout classes", () => {
-    const { container } = render(<TripList trips={mockTrips} />);
+    const { container } = renderWithRouter(<TripList trips={mockTrips} />);
     const gridContainer = container.querySelector("div");
     expect(gridContainer).toHaveClass(
       "grid",
@@ -61,7 +66,7 @@ describe("TripList", () => {
 
   it("renders single trip correctly", () => {
     const singleTrip = [mockTrips[0]];
-    render(<TripList trips={singleTrip} />);
+    renderWithRouter(<TripList trips={singleTrip} />);
     expect(screen.getByText("European Adventure")).toBeInTheDocument();
     expect(screen.queryByText("No trips found")).not.toBeInTheDocument();
   });
